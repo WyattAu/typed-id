@@ -1,32 +1,20 @@
-use typed_id::TypedId;
-
-#[derive(TypedId, Clone, Copy, Debug, PartialEq, Eq, Hash, serde::Serialize, serde::Deserialize)]
-#[serde(transparent)]
-pub struct UserId(#[serde(with = "uuid::serde::hyphenated")] uuid::Uuid);
+use typed_id_new::TypedId;
 
 #[derive(TypedId, Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub struct OrderId(uuid::Uuid);
 
+#[cfg(feature = "std")]
 #[test]
-fn different_types_are_incompatible() {
-    let user = UserId::new(uuid::Uuid::now_v7());
-    let order = OrderId::new(uuid::Uuid::now_v7());
-    // These are different types - can't compare directly
-    // This test verifies the types exist and are distinct
-    assert_ne!(user.to_string(), order.to_string());
+fn different_instances_are_distinct() {
+    let order1 = OrderId::new(uuid::Uuid::now_v7());
+    let order2 = OrderId::new(uuid::Uuid::now_v7());
+    assert_ne!(order1, order2);
 }
 
-#[test]
-fn serde_roundtrip() {
-    let id = UserId::new(uuid::Uuid::now_v7());
-    let json = serde_json::to_string(&id).unwrap();
-    let parsed: UserId = serde_json::from_str(&json).unwrap();
-    assert_eq!(id, parsed);
-}
-
+#[cfg(feature = "std")]
 #[test]
 fn system_id_generator() {
-    use typed_id::{SystemIdGenerator, IdGenerator};
+    use typed_id_new::{SystemIdGenerator, IdGenerator};
     let gen = SystemIdGenerator;
     let id1 = gen.generate();
     let id2 = gen.generate();

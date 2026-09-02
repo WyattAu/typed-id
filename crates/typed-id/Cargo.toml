@@ -1,5 +1,5 @@
 [package]
-name = "typed-id"
+name = "typed-id-new"
 version = "0.1.0"
 edition = "2021"
 rust-version = "1.85"
@@ -10,10 +10,18 @@ keywords = ["typed-id", "newtype", "uuid", "derive"]
 categories = ["rust-patterns"]
 
 [dependencies]
-typed-id-derive = { path = "../typed-id-derive" }
-uuid = { version = "1", features = ["v4", "v7", "serde"] }
-serde = { version = "1", features = ["derive"] }
+typed-id-derive = { version = "0.1", package = "typed-id-derive", path = "../typed-id-derive" }
+uuid = { version = "1", default-features = false }
+serde = { version = "1", features = ["derive"], optional = true }
 
 [dev-dependencies]
 serde_json = "1"
 proptest = "1"
+
+[features]
+default = ["std", "uuid_v4", "uuid_v7", "uuid_serde"]
+std = ["uuid/std"]
+uuid_v4 = ["uuid/v4"]
+uuid_v7 = ["uuid/v7", "uuid/std"]
+uuid_serde = ["uuid/serde"]
+serde_impl = ["dep:serde"]

@@ -1,3 +1,4 @@
+#![cfg_attr(not(feature = "std"), no_std)]
 #![forbid(unsafe_code)]
 #![deny(missing_docs)]
 
@@ -7,21 +8,25 @@
 //! wrappers around `uuid::Uuid`, preventing confusion between different
 //! ID types at compile time.
 
+extern crate alloc;
+
 pub use typed_id_derive::TypedId;
 pub use uuid;
 
 /// Trait for generating IDs.
 ///
 /// Allows dependency injection of ID generation for testing.
-pub trait IdGenerator: Send + Sync {
+pub trait IdGenerator {
     /// Generate a new ID.
     fn generate(&self) -> uuid::Uuid;
 }
 
 /// System ID generator using UUID v7 (time-ordered).
+#[cfg(feature = "std")]
 #[derive(Clone, Copy, Default, Debug)]
 pub struct SystemIdGenerator;
 
+#[cfg(feature = "std")]
 impl IdGenerator for SystemIdGenerator {
     fn generate(&self) -> uuid::Uuid {
         uuid::Uuid::now_v7()
@@ -50,10 +55,12 @@ impl IdGenerator for FixedIdGenerator {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use alloc::string::ToString;
 
     #[derive(TypedId, Clone, Copy, Debug, PartialEq, Eq, Hash)]
     struct TestId(uuid::Uuid);
 
+    #[cfg(feature = "std")]
     #[test]
     fn roundtrip_uuid() {
         let id = TestId::new(uuid::Uuid::now_v7());
@@ -62,6 +69,7 @@ mod tests {
         assert_eq!(uuid, back);
     }
 
+    #[cfg(feature = "std")]
     #[test]
     fn parse_works() {
         let id = TestId::new(uuid::Uuid::now_v7());
