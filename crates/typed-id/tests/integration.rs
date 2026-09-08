@@ -1,4 +1,4 @@
-use typed_id_new::TypedId;
+use typedids::TypedId;
 
 #[derive(TypedId, Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub struct OrderId(uuid::Uuid);
@@ -14,7 +14,7 @@ fn different_instances_are_distinct() {
 #[cfg(feature = "std")]
 #[test]
 fn system_id_generator() {
-    use typed_id_new::{SystemIdGenerator, IdGenerator};
+    use typedids::{SystemIdGenerator, IdGenerator};
     let gen = SystemIdGenerator;
     let id1 = gen.generate();
     let id2 = gen.generate();

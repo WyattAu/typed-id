@@ -1,12 +1,13 @@
 [package]
-name = "typed-id-new"
+name = "typedids"
 version = "0.1.0"
 edition = "2021"
 rust-version = "1.85"
 license = "MIT OR Apache-2.0"
 description = "Type-safe ID newtypes via derive macro"
 repository = "https://github.com/WyattAu/typed-id"
-keywords = ["typed-id", "newtype", "uuid", "derive"]
+readme = "README.md"
+keywords = ["typedids", "newtype", "uuid", "derive"]
 categories = ["rust-patterns"]
 
 [dependencies]

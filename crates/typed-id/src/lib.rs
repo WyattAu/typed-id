@@ -7,6 +7,16 @@
 //! Provides a `#[derive(TypedId)]` macro that generates type-safe newtype
 //! wrappers around `uuid::Uuid`, preventing confusion between different
 //! ID types at compile time.
+//!
+//! Published on crates.io as [`typedids`](https://crates.io/crates/typedids)
+//! (`typed-id` is taken by an unrelated crate; `typed-id-new` was a
+//! placeholder name).
+//!
+//! # Why not ULID?
+//!
+//! Typed UUIDv7 newtypes with serde/derive ergonomics vs ULID's
+//! Crockford-base32 sortable IDs — different tradeoffs, ours integrates
+//! with existing UUID columns.
 
 extern crate alloc;
 

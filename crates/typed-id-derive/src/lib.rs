@@ -21,7 +21,7 @@ use syn::{parse_macro_input, DeriveInput};
 ///
 /// # Example
 /// ```ignore
-/// use typed_id::TypedId;
+/// use typedids::TypedId;
 ///
 /// #[derive(TypedId, Clone, Copy, Debug, PartialEq, Eq, Hash, serde::Serialize, serde::Deserialize)]
 /// #[serde(transparent)]
