@@ -1,4 +1,5 @@
 [package]
+exclude = ["/target"]
 name = "typedids"
 version = "0.1.0"
 edition = "2021"
@@ -26,3 +27,6 @@ uuid_v4 = ["uuid/v4"]
 uuid_v7 = ["uuid/v7", "uuid/std"]
 uuid_serde = ["uuid/serde"]
 serde_impl = ["dep:serde"]
+
+[lints]
+workspace = true
