@@ -14,7 +14,7 @@ fn different_instances_are_distinct() {
 #[cfg(feature = "std")]
 #[test]
 fn system_id_generator() {
-    use typedids::{SystemIdGenerator, IdGenerator};
+    use typedids::{IdGenerator, SystemIdGenerator};
     let gen = SystemIdGenerator;
     let id1 = gen.generate();
     let id2 = gen.generate();
