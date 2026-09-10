@@ -14,10 +14,8 @@ categories = ["rust-patterns"]
 [dependencies]
 typed-id-derive = { version = "0.1", package = "typed-id-derive", path = "../typed-id-derive" }
 uuid = { version = "1", default-features = false }
-serde = { version = "1", features = ["derive"], optional = true }
 
 [dev-dependencies]
-serde_json = "1"
 proptest = "1"
 
 [features]
@@ -26,7 +24,6 @@ std = ["uuid/std"]
 uuid_v4 = ["uuid/v4"]
 uuid_v7 = ["uuid/v7", "uuid/std"]
 uuid_serde = ["uuid/serde"]
-serde_impl = ["dep:serde"]
 
 [lints]
 workspace = true
