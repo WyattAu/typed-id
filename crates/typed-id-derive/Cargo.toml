@@ -1,11 +1,11 @@
 [package]
 exclude = ["/target"]
 name = "typed-id-derive"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 rust-version = "1.85"
 license = "MIT OR Apache-2.0"
-description = "Derive macro for typedids"
+description = "Type-safe ID newtypes via derive macro"
 repository = "https://github.com/WyattAu/typed-id"
 readme = "README.md"
 keywords = ["typedids", "derive", "macro", "uuid", "newtype"]
