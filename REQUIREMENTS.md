@@ -1,4 +1,4 @@
-# Requirements — typed-id
+# Requirements: typed-id
 
 Numbered, testable requirements. Every requirement maps to at least one named
 test; every security-relevant test cites at least one requirement. Threat
@@ -24,7 +24,7 @@ nil handling, and string round-trips.
 | ID | Requirement | Priority |
 |----|-------------|----------|
 | REQ-TI-100 | ID-type confusion is a compile error: distinct derive types are distinct types with no implicit cross-conversion (T1) | MUST |
-| REQ-TI-101 | Parsing is delegated to `uuid::Uuid::parse_str` — malformed strings produce errors, never panics or silent truncation (T2) | MUST |
+| REQ-TI-101 | Parsing is delegated to `uuid::Uuid::parse_str`; malformed strings produce errors, never panics or silent truncation (T2) | MUST |
 | REQ-TI-102 | Production generation uses the `uuid` crate's CSPRNG-backed v4 (or time-ordered v7); deterministic generators are opt-in and named for tests (T3, T4) | MUST |
 | REQ-TI-103 | No `unsafe` anywhere in the workspace (T5) | MUST |
 

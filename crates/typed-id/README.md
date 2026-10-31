@@ -37,5 +37,5 @@ Generated API per ID type: `new`, `as_uuid`, `parse`, `nil`, `is_nil`,
 ## Why not ULID?
 
 Typed UUIDv7 newtypes with serde/derive ergonomics vs ULID's
-Crockford-base32 sortable IDs — different tradeoffs, ours integrates with
+Crockford-base32 sortable IDs; different tradeoffs, ours integrates with
 existing UUID columns.
