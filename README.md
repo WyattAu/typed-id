@@ -9,10 +9,15 @@ Type-safe ID newtypes via derive macro. A `#[derive(TypedId)]` macro that
 generates type-safe newtype wrappers around `uuid::Uuid`, preventing
 confusion between different ID types at compile time.
 
-Published on crates.io as
-[`typedids`](https://crates.io/crates/typedids) (`typed-id` is taken by an
-unrelated crate; `typed-id-new` was a placeholder name). Repo directory
-(`typed-id`) is unchanged.
+## Publishing status
+
+**Not yet on crates.io.** The planned package name is
+[`typedids`](https://crates.io/crates/typedids) (the `typed-id` name is
+taken by an unrelated crate; `typed-id-new` was a placeholder that was
+published as 0.0.0 and should be considered vestigial). The
+[`typed-id-derive`](https://crates.io/crates/typed-id-derive) proc-macro
+crate **is published** (0.1.1) and is consumed directly by the estate's
+integration suite. Repo directory (`typed-id`) is unchanged.
 
 ## Usage
 
