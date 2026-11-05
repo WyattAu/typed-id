@@ -35,17 +35,65 @@ pub fn derive_typed_id(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
     let name = &input.ident;
 
-    let expanded = quote! {
-        impl #name {
+    // `#[id(new = false)]` / `#[id(as_uuid = false)]`: hosts whose macro
+    // already emits a random-ID `new()` (v4/v7 policy lives there) or a
+    // by-reference `as_uuid` suppress the generated versions and keep
+    // their own. Everything else is always generated.
+    let mut gen_new = true;
+    let mut gen_as_uuid = true;
+    for attr in &input.attrs {
+        if !attr.path().is_ident("id") {
+            continue;
+        }
+        let ok = attr.parse_args_with(
+            syn::punctuated::Punctuated::<syn::Meta, syn::Token![,]>::parse_terminated,
+        );
+        if let Ok(nested) = ok {
+            for meta in nested {
+                if let syn::Meta::NameValue(nv) = &meta {
+                    let key = nv.path.get_ident().map(|i| i.to_string());
+                    let value = match &nv.value {
+                        syn::Expr::Lit(syn::ExprLit {
+                            lit: syn::Lit::Bool(b),
+                            ..
+                        }) => b.value,
+                        _ => true,
+                    };
+                    match key.as_deref() {
+                        Some("new") => gen_new = value,
+                        Some("as_uuid") => gen_as_uuid = value,
+                        _ => {}
+                    }
+                }
+            }
+        }
+    }
+
+    let new_impl = if gen_new {
+        quote! {
             /// Create from a UUID.
             pub const fn new(id: ::uuid::Uuid) -> Self {
                 Self(id)
             }
-
+        }
+    } else {
+        quote! {}
+    };
+    let as_uuid_impl = if gen_as_uuid {
+        quote! {
             /// Get the inner UUID.
             pub fn as_uuid(&self) -> ::uuid::Uuid {
                 self.0
             }
+        }
+    } else {
+        quote! {}
+    };
+
+    let expanded = quote! {
+        impl #name {
+            #new_impl
+            #as_uuid_impl
 
             /// Parse from a string.
             pub fn parse(s: &str) -> Option<Self> {
